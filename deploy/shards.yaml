@@ -1,0 +1,42 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata: {name: shard-0}
+spec:
+  instances: 2
+
+
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: preferred
+
+
+  storage:
+    size: 300Mi
+
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata: {name: shard-1}
+spec:
+  instances: 2
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: preferred
+  storage:
+    size: 300Mi
+
+
+
+---
+apiVersion:  postgresql.cnpg.io/v1
+kind: Cluster
+metadata: {name: meta}
+spec:
+  instances: 1
+  storage:
+    size: 300Mi
